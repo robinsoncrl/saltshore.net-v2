@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+
+  <!-- cream background — matches CalGen icon -->
+  <rect width="200" height="200" fill="#F0EBE1"/>
+
+  <!-- document body (white fill, dark navy stroke) -->
+  <path d="M38,22 L128,22 L128,22 L158,52 L158,170
+           Q158,178 150,178 L38,178 Q30,178 30,170
+           L30,30 Q30,22 38,22 Z"
+        fill="#FFFFFF" stroke="#2B4E6F" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- folded corner triangle -->
+  <path d="M128,22 L158,52 L128,52 Z"
+        fill="#E4EEF5" stroke="#2B4E6F" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- text line rows (blue-grey) -->
+  <rect x="46" y="72"  width="88" height="9" rx="4" fill="#8FA8BC"/>
+  <rect x="46" y="88"  width="88" height="9" rx="4" fill="#8FA8BC"/>
+  <rect x="46" y="104" width="88" height="9" rx="4" fill="#8FA8BC"/>
+  <rect x="46" y="120" width="68" height="9" rx="4" fill="#8FA8BC"/>
+  <rect x="46" y="136" width="76" height="9" rx="4" fill="#8FA8BC"/>
+
+  <!-- orange checkmark badge (overlaps bottom-right) -->
+  <circle cx="155" cy="158" r="30" fill="#E0632A"/>
+
+  <!-- checkmark -->
+  <polyline points="142,158 151,168 169,144"
+            fill="none" stroke="#FFFFFF" stroke-width="6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>

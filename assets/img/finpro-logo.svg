@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+
+  <!-- cream background — matches CalGen icon -->
+  <rect width="200" height="200" fill="#F0EBE1"/>
+
+  <!-- top flap / card silhouette from the reference image -->
+  <path d="M48 62 L112 40 Q120 38 126 43 Q132 48 132 57 L132 60 L64 60 Q53 60 48 62 Z"
+        fill="#FFFFFF" stroke="#2B4E6F" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- main wallet body -->
+  <rect x="36" y="60" width="118" height="92" rx="14"
+        fill="#FFFFFF" stroke="#2B4E6F" stroke-width="6"/>
+
+  <!-- stitch line across top edge -->
+  <line x1="52" y1="81" x2="138" y2="81"
+        stroke="#8FA8BC" stroke-width="2.5"
+        stroke-dasharray="1.5 7" stroke-linecap="round"/>
+
+  <!-- dollar sign centered on wallet -->
+  <line x1="92" y1="96" x2="92" y2="130"
+        stroke="#8FA8BC" stroke-width="5" stroke-linecap="round"/>
+  <path d="M103 101 C99 96 93 95 87 95 C78 95 72 100 72 108 C72 116 79 119 89 121 C100 123 106 126 106 134 C106 142 99 147 90 147 C82 147 75 144 70 139"
+        fill="none" stroke="#8FA8BC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- latch housing on right -->
+  <rect x="122" y="101" width="39" height="30" rx="7"
+        fill="#FFFFFF" stroke="#2B4E6F" stroke-width="6"/>
+
+  <!-- orange clasp plate -->
+  <rect x="127" y="106" width="29" height="20" rx="4" fill="#E0632A"/>
+  <circle cx="136" cy="116" r="6" fill="#FFB23D"/>
+
+</svg>
