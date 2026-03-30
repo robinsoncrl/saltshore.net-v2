@@ -1,18 +1,28 @@
 <?php
 /**
  * Saltshore Owner Portal — Configuration
+ * 
+ * Loads deployment-specific config if available (config-deploy.php on production)
+ * Falls back to development defaults below
  */
 
-// Database connection
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'saltshore_portal');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Check for deployment-specific config first (Spaceship or production server)
+if (file_exists(__DIR__ . '/config-deploy.php')) {
+    require_once __DIR__ . '/config-deploy.php';
+} else {
+    // Development/Local defaults
+    define('DB_HOST', 'localhost');
+    define('DB_NAME', 'saltshore_portal');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('CEO_OWNER_IDENTIFIER', 'CEO1');
+}
 
 // Management allowlist (login identifier values that can access Management tab/page)
 // Identifier can be owner username (e.g. CEO1) or employee_code (e.g. EMP-001)
-define('MANAGEMENT_ALLOWLIST', ['CEO1', 'Admin']);
-define('CEO_OWNER_IDENTIFIER', 'CEO1');
+if (!defined('MANAGEMENT_ALLOWLIST')) {
+    define('MANAGEMENT_ALLOWLIST', ['CEO1', 'Admin']);
+}
 
 // Session configuration
 ini_set('session.cookie_httponly', 1);

@@ -1,0 +1,35 @@
+# Force HTTPS and configure RewriteEngine for SaltShore V2 on Spaceship
+RewriteEngine On
+
+# Force HTTPS redirect (unless already HTTPS)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Optional: force www or remove www (uncomment one)
+# Force www subdomain:
+# RewriteCond %{HTTP_HOST} !^www\.
+# RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove www subdomain:
+# RewriteCond %{HTTP_HOST} ^www\.
+# RewriteRule ^(.*)$ https://%{HTTP_HOST:4}%{REQUEST_URI} [L,R=301]
+
+# Prevent direct file access to config files
+<FilesMatch "config-deploy.php|setup.sql|\.env">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Prevent access to common sensitive folders
+<DirectoryMatch "\.git|tmp|logs|portal/uploads">
+    Order Allow,Deny
+    Deny from all
+</DirectoryMatch>
+
+# Set default character set for static files
+AddDefaultCharset utf-8
+
+# Gzip compression (if supported)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
