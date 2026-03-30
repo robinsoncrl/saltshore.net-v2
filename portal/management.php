@@ -29,9 +29,9 @@ function handle_employee_photo_upload(int $employee_id, ?string $existing_photo)
         return ['photo' => $existing_photo, 'error' => 'Photo upload failed. Please try again.'];
     }
 
-    $max_bytes = 2 * 1024 * 1024;
+    $max_bytes = 5 * 1024 * 1024;
     if ((int)$file['size'] > $max_bytes) {
-        return ['photo' => $existing_photo, 'error' => 'Photo must be 2MB or less.'];
+        return ['photo' => $existing_photo, 'error' => 'Photo must be 5MB or less.'];
     }
 
     $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -133,6 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $address_line1 = trim($_POST['address_line1'] ?? '');
         $city_state_zip = trim($_POST['city_state_zip'] ?? '');
         $emergency_contact = trim($_POST['emergency_contact'] ?? '');
+        $public_bio = trim($_POST['public_bio'] ?? '');
+        $show_on_about = isset($_POST['show_on_about']) ? 1 : 0;
 
         $upload_result = handle_employee_photo_upload($employee_id, $existing_photo);
         if (!empty($upload_result['error'])) {
@@ -158,7 +160,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 photo_url = ?,
                 address_line1 = ?,
                 city_state_zip = ?,
-                emergency_contact = ?
+                emergency_contact = ?,
+                public_bio = ?,
+                show_on_about = ?
             WHERE id = ? AND user_id = ?");
         $stmt->execute([
             $full_name,
@@ -171,6 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $address_line1 !== '' ? $address_line1 : null,
             $city_state_zip !== '' ? $city_state_zip : null,
             $emergency_contact !== '' ? $emergency_contact : null,
+            $public_bio !== '' ? $public_bio : null,
+            $show_on_about,
             $employee_id,
             $_SESSION['user_id']
         ]);
@@ -332,51 +338,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$active_stmt = $pdo->prepare("SELECT * FROM employees WHERE user_id = ? AND status = 'active' ORDER BY full_name ASC");
-$active_stmt->execute([$_SESSION['user_id']]);
-$employees = $active_stmt->fetchAll();
+if (is_demo_mode()) {
+    $demo = get_demo_seed_data();
+    $employees = array_filter($demo['employees'], function($e) { return $e['status'] === 'active'; });
+    $employees = array_values($employees);
+    $archived = array_filter($demo['employees'], function($e) { return $e['status'] === 'inactive'; });
+    $archived = array_values($archived);
+} else {
+    $active_stmt = $pdo->prepare("SELECT * FROM employees WHERE user_id = ? AND status = 'active' ORDER BY full_name ASC");
+    $active_stmt->execute([$_SESSION['user_id']]);
+    $employees = $active_stmt->fetchAll();
 
-$inactive_stmt = $pdo->prepare("SELECT * FROM employees WHERE user_id = ? AND status = 'inactive' ORDER BY full_name ASC");
-$inactive_stmt->execute([$_SESSION['user_id']]);
-$archived = $inactive_stmt->fetchAll();
-
-$metrics_stmt = $pdo->prepare("SELECT
-    COALESCE(SUM(CASE WHEN DATE_FORMAT(start_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') THEN duration_seconds ELSE 0 END), 0) AS month_seconds,
-    COALESCE(SUM(CASE WHEN DATE_FORMAT(start_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') AND is_approved = 1 THEN duration_seconds ELSE 0 END), 0) AS approved_seconds,
-    COALESCE(SUM(CASE WHEN DATE_FORMAT(start_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') AND submitted_for_approval = 1 AND is_approved = 0 THEN 1 ELSE 0 END), 0) AS pending_approvals
-FROM time_blocks
-WHERE user_id = ? AND employee_id = ?");
-
-$sched_count_stmt = $pdo->prepare("SELECT COUNT(*) FROM work_schedules WHERE user_id = ? AND employee_id = ? AND schedule_date >= CURDATE()");
-$schedules_stmt = $pdo->prepare("SELECT id, employee_id, schedule_date, shift_start, shift_end, notes FROM work_schedules WHERE user_id = ? AND schedule_date >= CURDATE() ORDER BY schedule_date ASC, shift_start ASC");
-$schedules_stmt->execute([$_SESSION['user_id']]);
-$all_schedules = $schedules_stmt->fetchAll();
-
-$schedules_by_employee = [];
-foreach ($all_schedules as $schedule) {
-    $eid = (int)$schedule['employee_id'];
-    if (!isset($schedules_by_employee[$eid])) {
-        $schedules_by_employee[$eid] = [];
-    }
-    $schedules_by_employee[$eid][] = $schedule;
+    $inactive_stmt = $pdo->prepare("SELECT * FROM employees WHERE user_id = ? AND status = 'inactive' ORDER BY full_name ASC");
+    $inactive_stmt->execute([$_SESSION['user_id']]);
+    $archived = $inactive_stmt->fetchAll();
 }
 
-$employee_metrics = [];
-foreach ($employees as $emp) {
-    $employee_id = (int)$emp['id'];
+if (is_demo_mode()) {
+    // Demo mode: simplified metrics and no schedules
+    $all_schedules = [];
+    $schedules_by_employee = [];
+    
+    $employee_metrics = [];
+    foreach ($employees as $emp) {
+        $employee_id = (int)$emp['id'];
+        // Demo metrics for demonstration
+        $demo_hours = match($employee_id) {
+            501 => 39.25,
+            502 => 38.50,
+            503 => 41.00,
+            default => 40.00
+        };
+        
+        $employee_metrics[$employee_id] = [
+            'month_hours' => $demo_hours,
+            'approved_hours' => $demo_hours,
+            'pending_approvals' => 0,
+            'upcoming_shifts' => 0,
+        ];
+    }
+} else {
+    $metrics_stmt = $pdo->prepare("SELECT
+        COALESCE(SUM(CASE WHEN DATE_FORMAT(start_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') THEN duration_seconds ELSE 0 END), 0) AS month_seconds,
+        COALESCE(SUM(CASE WHEN DATE_FORMAT(start_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') AND is_approved = 1 THEN duration_seconds ELSE 0 END), 0) AS approved_seconds,
+        COALESCE(SUM(CASE WHEN DATE_FORMAT(start_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') AND submitted_for_approval = 1 AND is_approved = 0 THEN 1 ELSE 0 END), 0) AS pending_approvals
+    FROM time_blocks
+    WHERE user_id = ? AND employee_id = ?");
 
-    $metrics_stmt->execute([$_SESSION['user_id'], $employee_id]);
-    $metric_row = $metrics_stmt->fetch();
+    $sched_count_stmt = $pdo->prepare("SELECT COUNT(*) FROM work_schedules WHERE user_id = ? AND employee_id = ? AND schedule_date >= CURDATE()");
+    $schedules_stmt = $pdo->prepare("SELECT id, employee_id, schedule_date, shift_start, shift_end, notes FROM work_schedules WHERE user_id = ? AND schedule_date >= CURDATE() ORDER BY schedule_date ASC, shift_start ASC");
+    $schedules_stmt->execute([$_SESSION['user_id']]);
+    $all_schedules = $schedules_stmt->fetchAll();
 
-    $sched_count_stmt->execute([$_SESSION['user_id'], $employee_id]);
-    $upcoming_shifts = (int)$sched_count_stmt->fetchColumn();
+    $schedules_by_employee = [];
+    foreach ($all_schedules as $schedule) {
+        $eid = (int)$schedule['employee_id'];
+        if (!isset($schedules_by_employee[$eid])) {
+            $schedules_by_employee[$eid] = [];
+        }
+        $schedules_by_employee[$eid][] = $schedule;
+    }
 
-    $employee_metrics[$employee_id] = [
-        'month_hours' => round(((int)$metric_row['month_seconds']) / 3600, 1),
-        'approved_hours' => round(((int)$metric_row['approved_seconds']) / 3600, 1),
-        'pending_approvals' => (int)$metric_row['pending_approvals'],
-        'upcoming_shifts' => $upcoming_shifts,
-    ];
+    $employee_metrics = [];
+    foreach ($employees as $emp) {
+        $employee_id = (int)$emp['id'];
+
+        $metrics_stmt->execute([$_SESSION['user_id'], $employee_id]);
+        $metric_row = $metrics_stmt->fetch();
+
+        $sched_count_stmt->execute([$_SESSION['user_id'], $employee_id]);
+        $upcoming_shifts = (int)$sched_count_stmt->fetchColumn();
+
+        $employee_metrics[$employee_id] = [
+            'month_hours' => round(((int)$metric_row['month_seconds']) / 3600, 1),
+            'approved_hours' => round(((int)$metric_row['approved_seconds']) / 3600, 1),
+            'pending_approvals' => (int)$metric_row['pending_approvals'],
+            'upcoming_shifts' => $upcoming_shifts,
+        ];
+    }
 }
 
 $flash = $_SESSION['flash_success'] ?? null;
@@ -386,6 +425,10 @@ unset($_SESSION['flash_success']);
 <?php if ($flash): ?>
 <div class="alert alert-success"><?= htmlspecialchars($flash) ?></div>
 <?php endif; ?>
+
+<div class="alert alert-success" style="margin-bottom: var(--space-lg);">
+    Employee paystub access is enabled. Use the "Request / View" button in the Active Employees table.
+</div>
 
 <div class="data-table-container" style="padding: var(--space-xl); margin-bottom: var(--space-2xl);">
     <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
@@ -413,6 +456,7 @@ unset($_SESSION['flash_success']);
                 <th>Start Date</th>
                 <th>Rate</th>
                 <th>Schedule</th>
+                <th>Paystubs</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -433,6 +477,11 @@ unset($_SESSION['flash_success']);
                             <div><strong><?= (int)$metrics['upcoming_shifts'] ?></strong> upcoming</div>
                             <div style="font-size: 0.82rem; opacity: 0.7;"><?= number_format((float)$metrics['month_hours'], 1) ?>h this month</div>
                         </td>
+                        <td>
+                            <a href="ledgerpro.php?employee=<?= (int)$emp['id'] ?>#paystubRequests" class="btn-secondary" style="padding: 6px 10px; text-decoration:none; display:inline-block;">
+                                Request / View
+                            </a>
+                        </td>
                         <td style="display:flex; gap:6px; flex-wrap:wrap;">
                             <button type="button" class="btn-secondary" data-modal-open="scheduleModal" data-employee-id="<?= (int)$emp['id'] ?>" data-employee-name="<?= htmlspecialchars($emp['full_name'], ENT_QUOTES) ?>">Schedule</button>
                             <button type="button" class="btn-secondary" data-modal-open="profileModal<?= (int)$emp['id'] ?>">Profile</button>
@@ -440,7 +489,7 @@ unset($_SESSION['flash_success']);
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr><td colspan="7" style="text-align: center; opacity: 0.55;">No active employees yet.</td></tr>
+                <tr><td colspan="8" style="text-align: center; opacity: 0.55;">No active employees yet.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
@@ -667,22 +716,27 @@ unset($_SESSION['flash_success']);
             <div class="profile-tabs" style="display:flex; gap:8px; padding: 16px 20px; border-bottom: 1px solid var(--panel-border);">
                 <button type="button" class="btn-secondary js-profile-tab is-active" data-target="profile-contact-<?= (int)$emp['id'] ?>">Contact Sheet</button>
                 <button type="button" class="btn-secondary js-profile-tab" data-target="profile-kpi-<?= (int)$emp['id'] ?>">Performance KPI</button>
+                <button type="button" class="btn-secondary js-profile-tab" data-target="profile-about-<?= (int)$emp['id'] ?>">About</button>
             </div>
 
-            <div class="portal-modal__body js-profile-panel" id="profile-contact-<?= (int)$emp['id'] ?>">
-                <form method="POST" enctype="multipart/form-data">
+            <div class="portal-modal__body">
+                <form method="POST" enctype="multipart/form-data" data-photo-form>
                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <input type="hidden" name="action" value="save_employee_profile">
                     <input type="hidden" name="employee_id" value="<?= (int)$emp['id'] ?>">
 
-                    <div style="display:grid; grid-template-columns: 120px 1fr; gap: var(--space-lg); align-items:start; margin-bottom: var(--space-lg);">
-                        <div style="width: 110px; height: 110px; border-radius: 50%; overflow:hidden; border:1px solid var(--panel-border); background:#f3f4f6;">
-                            <img src="<?= htmlspecialchars($emp['photo_url'] ?: '../assets/img/SSS_logo_2.png') ?>" alt="Employee photo" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="js-profile-panel" id="profile-contact-<?= (int)$emp['id'] ?>">
+                    <div style="display:grid; grid-template-columns: 120px 1fr; gap: var(--space-lg); align-items:start; margin-bottom: var(--space-lg); position: relative;">
+                        <div class="employee-photo-cropper" data-photo-cropper style="position: relative; width: 110px; height: 110px; border-radius: 50%; overflow: hidden; border:1px solid var(--panel-border); background:#f3f4f6;">
+                            <img src="<?= htmlspecialchars($emp['photo_url'] ?: '../assets/img/SSS_logo_2.png') ?>" alt="Employee photo" data-photo-preview>
                         </div>
                         <div class="form-group" style="margin-bottom:0;">
                             <label>Upload Employee Photo</label>
-                            <input type="file" name="photo_file" accept="image/jpeg,image/png,image/webp,image/gif">
-                            <small style="opacity:0.7;">JPG, PNG, WEBP, or GIF up to 2MB.</small>
+                            <input type="file" name="photo_file" accept="image/jpeg,image/png,image/webp,image/gif" data-photo-file>
+                            <small style="opacity:0.7; display:block;">JPG, PNG, WEBP, or GIF up to 5MB.</small>
+                            <small style="opacity:0.7; display:block; margin-top:4px;">After selecting a photo, drag inside the circle to center it.</small>
+                            <label style="display:block; margin-top:8px; font-size:0.82rem; opacity:0.85;">Zoom</label>
+                            <input type="range" min="1" max="4" step="0.01" value="1" data-photo-zoom disabled>
                         </div>
                     </div>
 
@@ -702,6 +756,22 @@ unset($_SESSION['flash_success']);
                         <div class="form-group"><label>Emergency Contact</label><input type="text" name="emergency_contact" value="<?= htmlspecialchars($emp['emergency_contact'] ?? '') ?>"></div>
                         <div class="form-group"><label>Start Date</label><input type="date" name="start_date" value="<?= htmlspecialchars($emp['start_date'] ?? '') ?>"></div>
                         <div class="form-group"><label>Hourly Rate</label><input type="number" name="hourly_rate" min="0" step="0.01" value="<?= htmlspecialchars((string)($emp['hourly_rate'] ?? '')) ?>"></div>
+                    </div>
+                    </div>
+
+                    <div class="js-profile-panel" id="profile-about-<?= (int)$emp['id'] ?>" style="display:none;">
+                        <div class="form-group" style="max-width: 760px;">
+                            <label for="public_bio_<?= (int)$emp['id'] ?>">Public Bio (About page)</label>
+                            <textarea id="public_bio_<?= (int)$emp['id'] ?>"
+                                      name="public_bio"
+                                      rows="6"
+                                      placeholder="Short public-facing bio for the main About page..."><?= htmlspecialchars((string)($emp['public_bio'] ?? '')) ?></textarea>
+                        </div>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.92rem; color:var(--color-primary); margin-top:10px;">
+                            <input type="checkbox" name="show_on_about" value="1" <?= !empty($emp['show_on_about']) ? 'checked' : '' ?>>
+                            Add to employee tab on public About page
+                        </label>
+                        <p style="font-size:0.82rem; opacity:0.7; margin-top:8px;">Visible publicly when enabled and a bio is provided.</p>
                     </div>
 
                     <div class="portal-modal__footer">
@@ -731,6 +801,7 @@ unset($_SESSION['flash_success']);
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 <?php endforeach; ?>
