@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Reports ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Reports</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+<!-- Period Selector -->
+<div style="background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: var(--radius-md); padding: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <form method="GET" style="display: flex; gap: var(--space-lg); align-items: flex-end; flex-wrap: wrap;">
+        <div class="form-group" style="margin: 0;">
+            <label style="font-size: 0.85rem; color: var(--color-secondary);">Period</label>
+            <select id="report-period" name="period" style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm); font-family: var(--font-primary);">
+                <option value="month"   >Monthly</option>
+                <option value="quarter" >This Quarter</option>
+                <option value="year"    >Full Year</option>
+                <option value="custom"  >Custom Range</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="margin: 0;" id="month-picker" >
+            <label style="font-size: 0.85rem; color: var(--color-secondary);">Month</label>
+            <input type="month" name="selected_month"
+                   value=""
+                   style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm);">
+        </div>
+
+        <div class="form-group" style="margin: 0;" id="year-picker" >
+            <label style="font-size: 0.85rem; color: var(--color-secondary);">Year</label>
+            <select name="year" style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm);">
+                
+                    <option value="" ></option>
+                
+            </select>
+        </div>
+
+        <div id="custom-range" style="display: ; gap: var(--space-md); align-items: flex-end;">
+            <div class="form-group" style="margin: 0;">
+                <label style="font-size: 0.85rem; color: var(--color-secondary);">From</label>
+                <input type="date" name="date_from" value=""
+                       style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm);">
+            </div>
+            <div class="form-group" style="margin: 0;">
+                <label style="font-size: 0.85rem; color: var(--color-secondary);">To</label>
+                <input type="date" name="date_to" value=""
+                       style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm);">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Generate Report</button>
+    </form>
+</div>
+
+<!-- Period Header -->
+<h2 style="color: var(--color-primary); margin-bottom: var(--space-xl);">
+    
+</h2>
+
+<!-- KPI Summary -->
+<div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: var(--space-2xl);">
+    <div class="kpi-card">
+        <div class="kpi-label">Revenue</div>
+        <div class="kpi-value" style="color: var(--success);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Expenses</div>
+        <div class="kpi-value" style="color: var(--danger);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Net Profit</div>
+        <div class="kpi-value" style="color: ;">
+            
+        </div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Hours Worked</div>
+        <div class="kpi-value"> hrs</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Invoices Created</div>
+        <div class="kpi-value"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Profit Margin</div>
+        <div class="kpi-value">
+            
+        </div>
+    </div>
+</div>
+
+<!-- Expense Breakdown -->
+
+<div class="data-table-container" style="margin-bottom: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Expense Breakdown</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>% of Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Invoice Summary -->
+<div class="data-table-container" style="margin-bottom: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Invoices</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Client</th>
+                <th>Hours</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td>#</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="color: ">
+                            
+                        </td>
+                        <td></td>
+                    </tr>
+                
+            
+                <tr><td colspan="6" style="text-align: center; opacity: 0.5;">No invoices for this period</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<!-- Export Buttons -->
+<div style="background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: var(--radius-md); padding: var(--space-xl);">
+    <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Export Data</h3>
+    <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+        <a href="?"
+           class="btn-secondary">Export Transactions (CSV)</a>
+        <a href="?"
+           class="btn-secondary">Export Invoices (CSV)</a>
+        <a href="?"
+           class="btn-secondary">Export Time Blocks (CSV)</a>
+    </div>
+</div>
+
+<script>
+const periodSelect  = document.getElementById('report-period');
+const monthPicker   = document.getElementById('month-picker');
+const yearPicker    = document.getElementById('year-picker');
+const customRange   = document.getElementById('custom-range');
+
+periodSelect.addEventListener('change', function () {
+    monthPicker.style.display  = this.value === 'month'   ? ''     : 'none';
+    yearPicker.style.display   = this.value === 'year'    ? ''     : 'none';
+    customRange.style.display  = this.value === 'custom'  ? 'flex' : 'none';
+});
+</script>
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

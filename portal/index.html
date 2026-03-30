@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Index ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Index</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+<!-- KPI Cards -->
+<div class="dashboard-grid">
+    <div class="kpi-card">
+        <div class="kpi-header">
+            <span class="kpi-label">Monthly Revenue</span>
+        </div>
+        <div class="kpi-value"></div>
+        <div class="kpi-change positive">↑ From FinPro invoices</div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-header">
+            <span class="kpi-label">Monthly Expenses</span>
+        </div>
+        <div class="kpi-value"></div>
+        <div class="kpi-change negative">↓ From LedgerPro</div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-header">
+            <span class="kpi-label">Net Profit</span>
+        </div>
+        <div class="kpi-value" style="color: ">
+            
+        </div>
+        <div class="kpi-change">Revenue - Expenses</div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-header">
+            <span class="kpi-label">Hours Worked</span>
+        </div>
+        <div class="kpi-value"> hrs</div>
+        <div class="kpi-change">From CalGen tracking</div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-header">
+            <span class="kpi-label">Effective Rate</span>
+        </div>
+        <div class="kpi-value">/hr</div>
+        <div class="kpi-change">Revenue ÷ Hours</div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-header">
+            <span class="kpi-label">Profit per Hour</span>
+        </div>
+        <div class="kpi-value">/hr</div>
+        <div class="kpi-change">Net Profit ÷ Hours</div>
+    </div>
+</div>
+
+<!-- Revenue vs Expenses Chart -->
+<div class="chart-container">
+    <div class="chart-header">
+        <h3>Revenue vs Expenses</h3>
+        <p>Last 6 months</p>
+    </div>
+    <canvas id="revenueExpensesChart" height="80"></canvas>
+</div>
+
+<!-- Recent Time Blocks -->
+<div class="data-table-container">
+    <div class="data-table-header">
+        <h3>Recent Time Blocks</h3>
+        <a href="calgen.html" class="btn-secondary">View All</a>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                
+            
+                <tr><td colspan="5" style="text-align: center; opacity: 0.5;">No time blocks yet</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<!-- Recent Transactions -->
+<div class="data-table-container">
+    <div class="data-table-header">
+        <h3>Recent Transactions</h3>
+        <a href="ledgerpro.html" class="btn-secondary">View All</a>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="color: ">
+                            
+                        </td>
+                        <td></td>
+                    </tr>
+                
+            
+                <tr><td colspan="5" style="text-align: center; opacity: 0.5;">No transactions yet</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<script>
+// Revenue vs Expenses Chart
+const ctx = document.getElementById('revenueExpensesChart');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+            {
+                label: 'Revenue',
+                data: [0, 0, 0, 0, 0, ],
+                borderColor: '#2E8BC0',
+                backgroundColor: 'rgba(46, 139, 192, 0.1)',
+                tension: 0.4
+            },
+            {
+                label: 'Expenses',
+                data: [0, 0, 0, 0, 0, ],
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                tension: 0.4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return '$' + value.toLocaleString();
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

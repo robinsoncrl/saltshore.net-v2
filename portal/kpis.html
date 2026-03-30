@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Kpis ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Kpis</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+<!-- Summary KPIs -->
+<div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: var(--space-2xl);">
+    <div class="kpi-card">
+        <div class="kpi-label">YTD Revenue</div>
+        <div class="kpi-value" style="color: var(--success);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">YTD Expenses</div>
+        <div class="kpi-value" style="color: var(--danger);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">YTD Net Profit</div>
+        <div class="kpi-value" style="color: ;">
+            
+        </div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">YTD Hours</div>
+        <div class="kpi-value"> hrs</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Avg Monthly Revenue</div>
+        <div class="kpi-value"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Profit Margin</div>
+        <div class="kpi-value">
+            
+        </div>
+    </div>
+</div>
+
+<!-- Revenue vs Expenses (line) -->
+<div class="chart-container">
+    <div class="chart-header">
+        <h3>Revenue vs Expenses</h3>
+        <p>Last 12 months</p>
+    </div>
+    <canvas id="revExpChart" height="70"></canvas>
+</div>
+
+<!-- Net Profit + Hours side by side -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <div class="chart-container" style="margin-bottom: 0;">
+        <div class="chart-header">
+            <h3>Net Profit</h3>
+            <p>Monthly trend</p>
+        </div>
+        <canvas id="netProfitChart" height="140"></canvas>
+    </div>
+    <div class="chart-container" style="margin-bottom: 0;">
+        <div class="chart-header">
+            <h3>Hours Worked</h3>
+            <p>Monthly trend</p>
+        </div>
+        <canvas id="hoursChart" height="140"></canvas>
+    </div>
+</div>
+
+<!-- Effective rate + Expense categories side by side -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+    <div class="chart-container" style="margin-bottom: 0;">
+        <div class="chart-header">
+            <h3>Effective Hourly Rate</h3>
+            <p>Revenue ÷ hours per month</p>
+        </div>
+        <canvas id="effRateChart" height="140"></canvas>
+    </div>
+    <div class="chart-container" style="margin-bottom: 0;">
+        <div class="chart-header">
+            <h3>Expense Categories</h3>
+            <p></p>
+        </div>
+        
+            <canvas id="expCatChart" height="140"></canvas>
+        
+            <p style="text-align: center; opacity: 0.5; padding: 40px 0;">No expense data yet</p>
+        
+    </div>
+</div>
+
+<script>
+const labels    = ;
+const revenue   = ;
+const expenses  = ;
+const netProfit = ;
+const hours     = ;
+const effRate   = ;
+
+const catLabels = ;
+const catTotals = ;
+
+const sharedOptsY = {
+    beginAtZero: true,
+    ticks: { callback: v => '$' + v.toLocaleString() }
+};
+
+// ── Revenue vs Expenses ────────────────────────────────────────────────────
+new Chart(document.getElementById('revExpChart'), {
+    type: 'line',
+    data: {
+        labels,
+        datasets: [
+            {
+                label: 'Revenue',
+                data: revenue,
+                borderColor: '#2E8BC0',
+                backgroundColor: 'rgba(46,139,192,0.08)',
+                tension: 0.4,
+                fill: true
+            },
+            {
+                label: 'Expenses',
+                data: expenses,
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239,68,68,0.08)',
+                tension: 0.4,
+                fill: true
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: sharedOptsY }
+    }
+});
+
+// ── Net Profit ─────────────────────────────────────────────────────────────
+new Chart(document.getElementById('netProfitChart'), {
+    type: 'bar',
+    data: {
+        labels,
+        datasets: [{
+            label: 'Net Profit',
+            data: netProfit,
+            backgroundColor: netProfit.map(v => v >= 0 ? 'rgba(16,185,129,0.7)' : 'rgba(239,68,68,0.7)'),
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: { legend: { display: false } },
+        scales: { y: sharedOptsY }
+    }
+});
+
+// ── Hours Worked ───────────────────────────────────────────────────────────
+new Chart(document.getElementById('hoursChart'), {
+    type: 'bar',
+    data: {
+        labels,
+        datasets: [{
+            label: 'Hours',
+            data: hours,
+            backgroundColor: 'rgba(46,139,192,0.6)',
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+    }
+});
+
+// ── Effective Rate ─────────────────────────────────────────────────────────
+new Chart(document.getElementById('effRateChart'), {
+    type: 'line',
+    data: {
+        labels,
+        datasets: [{
+            label: '$/hr',
+            data: effRate,
+            borderColor: '#F59E0B',
+            backgroundColor: 'rgba(245,158,11,0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { callback: v => '$' + v + '/hr' }
+            }
+        }
+    }
+});
+
+// ── Expense Donut ──────────────────────────────────────────────────────────
+
+const donutColors = [
+    '#2E8BC0','#EF4444','#F59E0B','#10B981',
+    '#8B5CF6','#EC4899','#06B6D4','#84CC16'
+];
+new Chart(document.getElementById('expCatChart'), {
+    type: 'doughnut',
+    data: {
+        labels: catLabels,
+        datasets: [{
+            data: catTotals,
+            backgroundColor: donutColors.slice(0, catLabels.length),
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: { font: { size: 12 } }
+            },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ' $' + parseFloat(ctx.raw).toLocaleString('en-US', { minimumFractionDigits: 2 })
+                }
+            }
+        }
+    }
+});
+
+</script>
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

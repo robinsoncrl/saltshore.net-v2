@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Ledgerpro ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Ledgerpro</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+<div class="alert alert-success"></div>
+<div class="alert alert-error"></div>
+
+<!-- KPI Strip -->
+<div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: var(--space-2xl);">
+    <div class="kpi-card">
+        <div class="kpi-label">Income (Month)</div>
+        <div class="kpi-value" style="color: var(--success);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Expenses (Month)</div>
+        <div class="kpi-value" style="color: var(--danger);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Net Cash Flow</div>
+        <div class="kpi-value" style="color: ;">
+            
+        </div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Unreconciled</div>
+        <div class="kpi-value" style="color: ;">
+            
+        </div>
+    </div>
+</div>
+
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <div class="data-table-container" style="padding: var(--space-xl);">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Create Paystub Document</h3>
+        <p style="font-size: 0.88rem; opacity: 0.75; margin-bottom: var(--space-lg);">Builds from approved CalGen hours and paid FinPro revenue context.</p>
+        <form method="GET">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="create_paystub">
+            <div class="form-group">
+                <label for="paystub_employee_id">Employee</label>
+                <select id="paystub_employee_id" name="employee_id" required>
+                    <option value="">Select employee</option>
+                    
+                        <option value=""></option>
+                    
+                </select>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group">
+                    <label for="period_start">Period Start</label>
+                    <input type="date" id="period_start" name="period_start" required>
+                </div>
+                <div class="form-group">
+                    <label for="period_end">Period End</label>
+                    <input type="date" id="period_end" name="period_end" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Generate Paystub</button>
+        </form>
+    </div>
+
+    <div class="data-table-container" style="padding: var(--space-xl);">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Paystub History</h3>
+        <div style="display:grid; gap:8px; max-height: 300px; overflow:auto;">
+            
+                
+                    <a href="ledgerpro.html?paystub=" style="display:flex; justify-content:space-between; gap:10px; text-decoration:none; color:inherit; border:1px solid var(--panel-border); border-radius:8px; padding:8px 10px;">
+                        <span><strong></strong><br><span style="font-size:0.82rem; opacity:0.7;"> to </span></span>
+                        <span style="font-weight:600;"></span>
+                    </a>
+                
+            
+                <div style="opacity:0.6;">No paystubs generated yet.</div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="data-table-container" id="paystubDocument" style="padding: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; margin-bottom: var(--space-lg);">
+        <div>
+            <h3 style="color: var(--color-primary); margin-bottom: 6px;">Paystub #</h3>
+            <div style="opacity:0.75;">Employee: <strong></strong> ()</div>
+            <div style="opacity:0.75;">Pay Period:  to </div>
+        </div>
+        <button type="button" class="btn-secondary" onclick="window.print()">Print Document</button>
+    </div>
+
+    <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+        <div class="kpi-card">
+            <div class="kpi-label">Approved Hours</div>
+            <div class="kpi-value"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Hourly Rate</div>
+            <div class="kpi-value">/hr</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Gross Pay</div>
+            <div class="kpi-value" style="color: var(--success);"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Business Revenue Context</div>
+            <div class="kpi-value"></div>
+        </div>
+    </div>
+
+    <div style="margin-top: var(--space-lg); opacity:0.75; font-size:0.85rem;">
+        Generated by  on .
+    </div>
+</div>
+
+
+<!-- Cash Flow Chart -->
+<div class="chart-container">
+    <div class="chart-header">
+        <h3>Cash Flow — Last 6 Months</h3>
+        <p>Income vs Expenses</p>
+    </div>
+    <canvas id="cashFlowChart" height="70"></canvas>
+</div>
+
+<!-- Two column: import + add manual -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+
+    <!-- CSV Import -->
+    <div class="data-table-container" style="padding: var(--space-xl);">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Import CSV</h3>
+        <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: var(--space-lg);">
+            Expected columns: <code>date, description, amount[, category]</code>
+        </p>
+        <form method="GET" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="import_csv">
+            <div class="form-group">
+                <label for="csv-upload" id="csv-label" class="file-upload-label">Choose file…</label>
+                <input type="file" id="csv-upload" name="csv_file" accept=".csv,.txt" required
+                       style="display: none;">
+            </div>
+            <button type="submit" class="btn-primary">Import Transactions</button>
+        </form>
+    </div>
+
+    <!-- Manual Entry -->
+    <div class="data-table-container" style="padding: var(--space-xl);">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Add Transaction</h3>
+        <form method="GET">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="add_transaction">
+            <div class="form-group">
+                <label for="tx-date">Date</label>
+                <input type="date" id="tx-date" name="date" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="tx-desc">Description</label>
+                <input type="text" id="tx-desc" name="description" placeholder="Description" required>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group">
+                    <label for="tx-type">Type</label>
+                    <select id="tx-type" name="type">
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tx-amount">Amount</label>
+                    <input type="number" id="tx-amount" name="amount" min="0" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="tx-cat">Category</label>
+                    <input type="text" id="tx-cat" name="category" placeholder="Category">
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Add</button>
+        </form>
+    </div>
+
+</div>
+
+<!-- Filters -->
+<div style="display: flex; gap: var(--space-lg); align-items: center; margin-bottom: var(--space-xl);">
+    <form method="GET" style="display: flex; gap: var(--space-md); align-items: center; flex-wrap: wrap;">
+        <div class="form-group" style="margin: 0;">
+            <input type="month" name="month" value=""
+                   style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm); font-family: var(--font-primary);">
+        </div>
+        <div class="form-group" style="margin: 0;">
+            <select name="type" style="padding: 8px 12px; border: 1px solid var(--panel-border); border-radius: var(--radius-sm); font-family: var(--font-primary);">
+                <option value="all"     >All</option>
+                <option value="income"  >Income</option>
+                <option value="expense" >Expenses</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-secondary">Filter</button>
+    </form>
+</div>
+
+<!-- Transactions Table -->
+<div class="data-table-container">
+    <div class="data-table-header">
+        <h3>Transactions — </h3>
+        <span style="font-size: 0.85rem; opacity: 0.6;"> records</span>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight: 500; color: ">
+                            
+                        </td>
+                        <td style="font-size: 0.82rem; text-transform: capitalize; opacity: 0.7;">
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td style="display: flex; gap: var(--space-sm);">
+                            
+                                <form method="GET" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="">
+                                    <input type="hidden" name="action" value="reconcile">
+                                    <input type="hidden" name="tx_id" value="">
+                                    <button type="submit" class="btn-success"
+                                            style="padding: 4px 10px; font-size: 0.82rem;">Reconcile</button>
+                                </form>
+                            
+                            <form method="GET" style="display: inline;">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="action" value="delete_tx">
+                                <input type="hidden" name="tx_id" value="">
+                                <button type="submit" class="btn-danger"
+                                        data-confirm="Delete this transaction?"
+                                        style="padding: 4px 10px; font-size: 0.82rem;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="7" style="text-align: center; opacity: 0.5;">No transactions for this period</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<script>
+// Cash Flow Chart
+new Chart(document.getElementById('cashFlowChart'), {
+    type: 'bar',
+    data: {
+        labels: ,
+        datasets: [
+            {
+                label: 'Income',
+                data: ,
+                backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                borderRadius: 4
+            },
+            {
+                label: 'Expenses',
+                data: ,
+                backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                borderRadius: 4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { callback: v => '$' + v.toLocaleString() }
+            }
+        }
+    }
+});
+</script>
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

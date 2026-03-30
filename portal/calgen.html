@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calgen ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Calgen</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+<div class="alert alert-success"></div>
+
+<div style="display:flex; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-lg);">
+    <button type="button" class="btn-primary" data-modal-open="timeClockModal">Time Clock</button>
+    
+        <button type="button" class="btn-secondary" data-modal-open="myScheduleModal">My Schedule</button>
+        
+            <button type="button" class="btn-secondary" data-modal-open="myProfileModal">My Profile</button>
+        
+    
+    
+        <button type="button" class="btn-secondary" data-modal-open="scheduleModal">+ Schedule Employee</button>
+    
+</div>
+
+<div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+    <div class="kpi-card">
+        <div class="kpi-label">Total Hours</div>
+        <div class="kpi-value"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Billable Hours</div>
+        <div class="kpi-value" style="color: var(--success);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Time Blocks</div>
+        <div class="kpi-value"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Pending Approval</div>
+        <div class="kpi-value" style="color: var(--warning);">
+            
+        </div>
+    </div>
+</div>
+
+<div class="data-table-container" style="margin-top: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Time Blocks - </h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration</th>
+                <th>Category</th>
+                <th>Approval</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        
+                            <td></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong></strong></td>
+                        <td></td>
+                        <td>
+                            
+                                <span class="pill-success">Approved</span>
+                            
+                                <span class="pill-muted">Pending</span>
+                            
+                                <span class="pill-muted">Draft</span>
+                            
+                        </td>
+                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></td>
+                        <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                            
+                                <form method="GET" style="display:inline;">
+                                    <input type="hidden" name="csrf_token" value="">
+                                    <input type="hidden" name="action" value="submit_for_approval">
+                                    <input type="hidden" name="block_id" value="">
+                                    <button type="submit" class="btn-secondary" style="padding: 6px 10px;">Submit</button>
+                                </form>
+                            
+                            
+                                <form method="GET" style="display:inline;" onsubmit="return confirm('Delete this time block?');">
+                                    <input type="hidden" name="csrf_token" value="">
+                                    <input type="hidden" name="action" value="delete_block">
+                                    <input type="hidden" name="block_id" value="">
+                                    <button type="submit" class="btn-icon-danger" title="Delete time block" aria-label="Delete time block">&#128465;</button>
+                                </form>
+                            
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="" style="text-align:center; opacity:0.6;">No time blocks this month.</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="data-table-container" style="margin-top: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Management Time Approval Queue</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Shift</th>
+                <th>Duration</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td> - </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <form method="GET" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="action" value="approve_time">
+                                <input type="hidden" name="block_id" value="">
+                                <button type="submit" class="btn-success" style="padding:6px 12px;">Approve</button>
+                            </form>
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="6" style="text-align:center; opacity:0.6;">No pending entries to approve.</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="data-table-container" style="margin-top: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3></h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Employee</th>
+                <th>Shift</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td> - </td>
+                        <td></td>
+                        
+                        <td>
+                            <form method="GET" style="display:inline;" onsubmit="return confirm('Delete this schedule?');">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="action" value="delete_schedule">
+                                <input type="hidden" name="schedule_id" value="">
+                                <button type="submit" class="btn-icon-danger" title="Delete schedule" aria-label="Delete schedule">&#128465;</button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                
+            
+                <tr><td colspan="" style="text-align:center; opacity:0.6;">No upcoming schedules.</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="portal-modal" id="timeClockModal" aria-hidden="true">
+    <div class="portal-modal__backdrop" data-modal-close></div>
+    <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="timeClockModalTitle">
+        <div class="portal-modal__header">
+            <h3 id="timeClockModalTitle">Time Clock</h3>
+            <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+        </div>
+        <div class="portal-modal__body">
+            
+                <div class="timer-widget" style="margin-bottom: 0;">
+                    <h3>Timer Running</h3>
+                    <div class="timer-display" id="timerDisplay">00:00:00</div>
+                    <p style="opacity: 0.9; margin-bottom: var(--space-xl);">
+                        Category: <strong></strong><br>
+                        Started: 
+                    </p>
+                    <form method="GET" class="timer-controls">
+                        <input type="hidden" name="csrf_token" value="">
+                        <input type="hidden" name="action" value="punch_out">
+                        <textarea name="notes" placeholder="Notes (optional)" rows="2" style="width: 100%; margin-bottom: var(--space-md); padding: var(--space-md); border-radius: var(--radius-sm); border: 1px solid var(--panel-border);"></textarea>
+                        <button type="submit" class="btn-primary">Punch Out</button>
+                    </form>
+                </div>
+                <script>
+                const startTime = new Date('').getTime();
+                function updateTimer() {
+                    const now = Date.now();
+                    const elapsed = Math.floor((now - startTime) / 1000);
+                    const hours = Math.floor(elapsed / 3600);
+                    const minutes = Math.floor((elapsed % 3600) / 60);
+                    const seconds = elapsed % 60;
+                    const timerEl = document.getElementById('timerDisplay');
+                    if (timerEl) {
+                        timerEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    }
+                }
+                setInterval(updateTimer, 1000);
+                updateTimer();
+                </script>
+            
+                <div class="timer-widget" style="background: linear-gradient(135deg, var(--success) 0%, #059669 100%); margin-bottom: 0;">
+                    <h3>Ready to Track Time</h3>
+                    <div class="timer-display">00:00:00</div>
+                    <form method="GET" class="timer-controls">
+                        <input type="hidden" name="csrf_token" value="">
+                        <input type="hidden" name="action" value="punch_in">
+                        <select name="category" required style="padding: 12px 16px; border-radius: var(--radius-sm); border: none; margin-right: var(--space-md); font-family: var(--font-primary);">
+                            <option value="Client Work">Client Work</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Development">Development</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="General">General</option>
+                        </select>
+                        <button type="submit" class="btn-primary" style="background: white; color: var(--success);">Punch In</button>
+                    </form>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="portal-modal" id="scheduleModal" aria-hidden="true">
+    <div class="portal-modal__backdrop" data-modal-close></div>
+    <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="scheduleModalTitle">
+        <div class="portal-modal__header">
+            <h3 id="scheduleModalTitle">Create Work Schedule</h3>
+            <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+        </div>
+        <form method="GET" class="portal-modal__body">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="create_schedule">
+
+            <div class="form-group">
+                <label for="employee_id">Employee</label>
+                <select id="employee_id" name="employee_id" required>
+                    
+                        <option value=""></option>
+                    
+                </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group">
+                    <label for="schedule_date">Date</label>
+                    <input type="date" id="schedule_date" name="schedule_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="shift_start">Start</label>
+                    <input type="time" id="shift_start" name="shift_start" required>
+                </div>
+                <div class="form-group">
+                    <label for="shift_end">End</label>
+                    <input type="time" id="shift_end" name="shift_end" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="schedule_notes">Notes</label>
+                <input type="text" id="schedule_notes" name="schedule_notes" placeholder="Location, assignment, reminders...">
+            </div>
+
+            <div class="portal-modal__footer">
+                <button type="button" class="btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" class="btn-primary">Create Schedule</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="portal-modal" id="myScheduleModal" aria-hidden="true">
+    <div class="portal-modal__backdrop" data-modal-close></div>
+    <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="myScheduleModalTitle" style="max-width: 860px;">
+        <div class="portal-modal__header">
+            <h3 id="myScheduleModalTitle">My Schedule Calendar</h3>
+            <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+        </div>
+        <div class="portal-modal__body">
+            <div style="display:grid; gap:10px;">
+                
+                    
+                        <div style="border:1px solid var(--panel-border); border-radius:10px; padding:10px 12px;">
+                            <strong></strong>
+                            <div style="opacity:0.75; font-size:0.9rem;"> - </div>
+                            <div style="opacity:0.7; font-size:0.85rem;"></div>
+                        </div>
+                    
+                
+                    <div style="opacity:0.7;">No scheduled shifts yet.</div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+    <div class="portal-modal" id="myProfileModal" aria-hidden="true">
+        <div class="portal-modal__backdrop" data-modal-close></div>
+        <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="myProfileModalTitle" style="max-width: 900px;">
+            <div class="portal-modal__header">
+                <h3 id="myProfileModalTitle">My Employee Profile</h3>
+                <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+            </div>
+
+            <div class="profile-tabs" style="display:flex; gap:8px; padding: 16px 20px; border-bottom: 1px solid var(--panel-border);">
+                <button type="button" class="btn-secondary js-my-profile-tab is-active" data-target="my-profile-contact">Contact Sheet</button>
+                <button type="button" class="btn-secondary js-my-profile-tab" data-target="my-profile-kpi">Performance KPI</button>
+            </div>
+
+            <div class="portal-modal__body js-my-profile-panel" id="my-profile-contact">
+                <div style="display:grid; grid-template-columns: 120px 1fr; gap: var(--space-lg); align-items:start;">
+                    <div style="width: 110px; height: 110px; border-radius: 50%; overflow:hidden; border:1px solid var(--panel-border); background:#f3f4f6;">
+                        <img src="" alt="Employee photo" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom:6px;"></h4>
+                        <div style="opacity:0.78;"></div>
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-lg);">
+                    <div><strong>Email:</strong> </div>
+                    <div><strong>Phone:</strong> </div>
+                    <div><strong>Address:</strong> </div>
+                    <div><strong>City/State/Zip:</strong> </div>
+                    <div><strong>Emergency Contact:</strong> </div>
+                    <div><strong>Start Date:</strong> </div>
+                </div>
+            </div>
+
+            <div class="portal-modal__body js-my-profile-panel" id="my-profile-kpi" style="display:none;">
+                <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Hours This Month</div>
+                        <div class="kpi-value"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Approved Hours</div>
+                        <div class="kpi-value" style="color: var(--success);"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Pending Approval</div>
+                        <div class="kpi-value" style="color: var(--warning);"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Upcoming Shifts</div>
+                        <div class="kpi-value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.querySelectorAll('.js-my-profile-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.js-my-profile-tab').forEach(function (btn) {
+                btn.classList.remove('is-active');
+            });
+            document.querySelectorAll('.js-my-profile-panel').forEach(function (panel) {
+                panel.style.display = 'none';
+            });
+            tab.classList.add('is-active');
+            const target = document.getElementById(tab.getAttribute('data-target'));
+            if (target) {
+                target.style.display = 'block';
+            }
+        });
+    });
+    </script>
+
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

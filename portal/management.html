@@ -1,0 +1,430 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Management ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Management</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+
+<div class="alert alert-success"></div>
+
+
+<div class="data-table-container" style="padding: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+        <div>
+            <h3 style="color: var(--color-primary); margin-bottom: 4px;">Employee Roster</h3>
+            <p style="opacity: 0.7; font-size: 0.9rem;">Manage schedules, employee profiles, and credential security controls.</p>
+            
+                <p style="opacity: 0.7; font-size: 0.85rem; margin-top: 6px; color: var(--warning);">Credential lock/unlock/suspend/revoke actions are restricted to CEO1.</p>
+            
+        </div>
+        <button type="button" class="btn-primary" data-modal-open="onboardModal">+ Onboard Employee</button>
+    </div>
+</div>
+
+<div class="data-table-container" style="margin-bottom: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Active Employees</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Contact</th>
+                <th>Start Date</th>
+                <th>Rate</th>
+                <th>Schedule</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    
+                    <tr>
+                        <td><strong></strong></td>
+                        <td></td>
+                        <td>
+                            <div></div>
+                            <div style="opacity: 0.7; font-size: 0.82rem;"></div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div><strong></strong> upcoming</div>
+                            <div style="font-size: 0.82rem; opacity: 0.7;">h this month</div>
+                        </td>
+                        <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <button type="button" class="btn-secondary" data-modal-open="scheduleModal" data-employee-id="" data-employee-name="">Schedule</button>
+                            <button type="button" class="btn-secondary" data-modal-open="profileModal">Profile</button>
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="7" style="text-align: center; opacity: 0.55;">No active employees yet.</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="data-table-container" style="margin-bottom: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Credential Manager (CEO1)</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Employee ID</th>
+                <th>PIN</th>
+                <th>Status</th>
+                <th>Security Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td><strong></strong></td>
+                        <td>
+                            <form method="GET" style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="action" value="save_credentials">
+                                <input type="hidden" name="employee_id" value="">
+                                <input type="text" name="employee_code" value="" placeholder="EMP-001" style="width: 110px; padding: 6px 8px; border: 1px solid var(--panel-border); border-radius: 8px; font-family: var(--font-primary);" >
+                        </td>
+                        <td>
+                                <input type="password" name="pin" maxlength="4" pattern="[0-9]{4}" placeholder="4-digit PIN" style="width: 100px; padding: 6px 8px; border: 1px solid var(--panel-border); border-radius: 8px; font-family: var(--font-primary);" >
+                                <input type="password" name="pin_confirm" maxlength="4" pattern="[0-9]{4}" placeholder="Confirm" style="width: 90px; padding: 6px 8px; border: 1px solid var(--panel-border); border-radius: 8px; font-family: var(--font-primary);" >
+                        </td>
+                        <td>
+                            
+                            
+                            
+                            
+                        </td>
+                        <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                                <button type="submit" class="btn-secondary" style="padding: 6px 12px;" >Save</button>
+                            </form>
+
+                            <form method="GET" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="employee_id" value="">
+                                <input type="hidden" name="action" value="">
+                                <button type="submit" class="btn-secondary" style="padding: 6px 12px;" ></button>
+                            </form>
+
+                            <form method="GET" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="employee_id" value="">
+                                <input type="hidden" name="action" value="">
+                                <button type="submit" class="btn-secondary" style="padding: 6px 12px;" ></button>
+                            </form>
+
+                            <form method="GET" style="display:inline;" onsubmit="return confirm('Revoke employee ID/PIN and disable access?');">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="employee_id" value="">
+                                <input type="hidden" name="action" value="revoke_access">
+                                <button type="submit" class="btn-icon-danger" title="Revoke Access" aria-label="Revoke Access" >&#128465;</button>
+                            </form>
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="5" style="text-align: center; opacity: 0.55;">Onboard employees first to assign credentials.</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="data-table-container" style="margin-bottom: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Inactive / Suspended Employees</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Security</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="display:flex; gap:8px;">
+                        <form method="GET" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="">
+                            <input type="hidden" name="action" value="unsuspend_employee">
+                            <input type="hidden" name="employee_id" value="">
+                            <button type="submit" class="btn-success" style="padding: 6px 12px;" >Reactivate</button>
+                        </form>
+                        <form method="GET" style="display:inline;" onsubmit="return confirm('Fully revoke employee credentials?');">
+                            <input type="hidden" name="csrf_token" value="">
+                            <input type="hidden" name="action" value="revoke_access">
+                            <input type="hidden" name="employee_id" value="">
+                            <button type="submit" class="btn-icon-danger" title="Revoke Access" aria-label="Revoke Access" >&#128465;</button>
+                        </form>
+                    </td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="portal-modal" id="onboardModal" aria-hidden="true">
+    <div class="portal-modal__backdrop" data-modal-close></div>
+    <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="onboardModalTitle">
+        <div class="portal-modal__header">
+            <h3 id="onboardModalTitle">Onboard Employee</h3>
+            <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+        </div>
+        <form method="GET" class="portal-modal__body">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="onboard_employee">
+
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group">
+                    <label for="role_title">Role</label>
+                    <input type="text" id="role_title" name="role_title" placeholder="Tech, Admin, Support...">
+                </div>
+                <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" id="start_date" name="start_date">
+                </div>
+                <div class="form-group">
+                    <label for="hourly_rate">Hourly Rate</label>
+                    <input type="number" id="hourly_rate" name="hourly_rate" min="0" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+
+            <div class="portal-modal__footer">
+                <button type="button" class="btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" class="btn-primary">Create Employee</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="portal-modal" id="scheduleModal" aria-hidden="true">
+    <div class="portal-modal__backdrop" data-modal-close></div>
+    <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="scheduleModalTitle" style="max-width: 840px;">
+        <div class="portal-modal__header">
+            <h3 id="scheduleModalTitle">Schedule Employee Shift</h3>
+            <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+        </div>
+        <form method="GET" class="portal-modal__body" style="border-bottom: 1px solid var(--panel-border);">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="create_schedule">
+            <input type="hidden" name="employee_id" id="scheduleEmployeeId" value="">
+
+            <div style="font-size: 0.9rem; color: var(--color-secondary); margin-bottom: var(--space-md);">
+                Scheduling for: <strong id="scheduleEmployeeName">Select employee</strong>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group">
+                    <label for="schedule_date">Date</label>
+                    <input type="date" id="schedule_date" name="schedule_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="shift_start">Start</label>
+                    <input type="time" id="shift_start" name="shift_start" required>
+                </div>
+                <div class="form-group">
+                    <label for="shift_end">End</label>
+                    <input type="time" id="shift_end" name="shift_end" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="schedule_notes">Notes</label>
+                <input type="text" id="schedule_notes" name="schedule_notes" placeholder="Location, assignment, reminders...">
+            </div>
+
+            <div class="portal-modal__footer">
+                <button type="button" class="btn-secondary" data-modal-close>Cancel</button>
+                <button type="submit" class="btn-primary">Save Shift</button>
+            </div>
+        </form>
+
+        <div class="portal-modal__body">
+            <h4 style="margin-bottom: var(--space-md); color: var(--color-primary);">Upcoming Scheduled Shifts</h4>
+            <div id="scheduleCalendarRows" style="display:grid; gap:10px;"></div>
+        </div>
+    </div>
+</div>
+
+
+    
+    <div class="portal-modal" id="profileModal" aria-hidden="true">
+        <div class="portal-modal__backdrop" data-modal-close></div>
+        <div class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="profileTitle" style="max-width: 900px;">
+            <div class="portal-modal__header">
+                <h3 id="profileTitle">Employee Profile - </h3>
+                <button type="button" class="portal-modal__close" data-modal-close aria-label="Close">&times;</button>
+            </div>
+
+            <div class="profile-tabs" style="display:flex; gap:8px; padding: 16px 20px; border-bottom: 1px solid var(--panel-border);">
+                <button type="button" class="btn-secondary js-profile-tab is-active" data-target="profile-contact-">Contact Sheet</button>
+                <button type="button" class="btn-secondary js-profile-tab" data-target="profile-kpi-">Performance KPI</button>
+            </div>
+
+            <div class="portal-modal__body js-profile-panel" id="profile-contact-">
+                <form method="GET" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="">
+                    <input type="hidden" name="action" value="save_employee_profile">
+                    <input type="hidden" name="employee_id" value="">
+
+                    <div style="display:grid; grid-template-columns: 120px 1fr; gap: var(--space-lg); align-items:start; margin-bottom: var(--space-lg);">
+                        <div style="width: 110px; height: 110px; border-radius: 50%; overflow:hidden; border:1px solid var(--panel-border); background:#f3f4f6;">
+                            <img src="" alt="Employee photo" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label>Upload Employee Photo</label>
+                            <input type="file" name="photo_file" accept="image/jpeg,image/png,image/webp,image/gif">
+                            <small style="opacity:0.7;">JPG, PNG, WEBP, or GIF up to 2MB.</small>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                        <div class="form-group"><label>Full Name</label><input type="text" name="full_name" value="" required></div>
+                        <div class="form-group"><label>Role</label><input type="text" name="role_title" value=""></div>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                        <div class="form-group"><label>Email</label><input type="email" name="email" value=""></div>
+                        <div class="form-group"><label>Phone</label><input type="text" name="phone" value=""></div>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                        <div class="form-group"><label>Address</label><input type="text" name="address_line1" value=""></div>
+                        <div class="form-group"><label>City/State/Zip</label><input type="text" name="city_state_zip" value=""></div>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md);">
+                        <div class="form-group"><label>Emergency Contact</label><input type="text" name="emergency_contact" value=""></div>
+                        <div class="form-group"><label>Start Date</label><input type="date" name="start_date" value=""></div>
+                        <div class="form-group"><label>Hourly Rate</label><input type="number" name="hourly_rate" min="0" step="0.01" value=""></div>
+                    </div>
+
+                    <div class="portal-modal__footer">
+                        <button type="button" class="btn-secondary" data-modal-close>Close</button>
+                        <button type="submit" class="btn-primary">Save Profile</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="portal-modal__body js-profile-panel" id="profile-kpi-" style="display:none;">
+                <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Hours This Month</div>
+                        <div class="kpi-value"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Approved Hours</div>
+                        <div class="kpi-value" style="color: var(--success);"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Pending Approval</div>
+                        <div class="kpi-value" style="color: var(--warning);"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Upcoming Shifts</div>
+                        <div class="kpi-value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+const schedulesByEmployee = ;
+
+function renderEmployeeSchedules(employeeId) {
+    const root = document.getElementById('scheduleCalendarRows');
+    if (!root) return;
+
+    root.innerHTML = '';
+    const rows = schedulesByEmployee[String(employeeId)] || [];
+
+    if (!rows.length) {
+        root.innerHTML = '<div style="opacity:0.6; padding:10px; border:1px dashed var(--panel-border); border-radius:8px;">No upcoming shifts for this employee.</div>';
+        return;
+    }
+
+    rows.forEach(function (row) {
+        const wrap = document.createElement('div');
+        wrap.style.border = '1px solid var(--panel-border)';
+        wrap.style.borderRadius = '10px';
+        wrap.style.padding = '10px 12px';
+        wrap.style.display = 'flex';
+        wrap.style.justifyContent = 'space-between';
+        wrap.style.gap = '10px';
+        wrap.style.alignItems = 'center';
+
+        const left = document.createElement('div');
+        left.innerHTML = '<strong>' + row.schedule_date + '</strong><div style="opacity:0.7; font-size:0.85rem;">' + row.shift_start + ' - ' + row.shift_end + '</div><div style="opacity:0.75; font-size:0.82rem;">' + (row.notes || '-') + '</div>';
+
+        const right = document.createElement('form');
+        right.method = 'POST';
+        right.innerHTML =
+            '<input type="hidden" name="csrf_token" value="">' +
+            '<input type="hidden" name="action" value="delete_schedule">' +
+            '<input type="hidden" name="schedule_id" value="' + row.id + '">' +
+            '<button type="submit" class="btn-icon-danger" title="Delete shift" aria-label="Delete shift">&#128465;</button>';
+
+        wrap.appendChild(left);
+        wrap.appendChild(right);
+        root.appendChild(wrap);
+    });
+}
+
+document.querySelectorAll('[data-modal-open="scheduleModal"]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        const employeeId = btn.getAttribute('data-employee-id');
+        const employeeName = btn.getAttribute('data-employee-name');
+        const idInput = document.getElementById('scheduleEmployeeId');
+        const nameEl = document.getElementById('scheduleEmployeeName');
+        if (idInput) idInput.value = employeeId || '';
+        if (nameEl) nameEl.textContent = employeeName || 'Selected employee';
+        renderEmployeeSchedules(employeeId);
+    });
+});
+
+document.querySelectorAll('.js-profile-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+        const modal = tab.closest('.portal-modal__dialog');
+        if (!modal) return;
+
+        modal.querySelectorAll('.js-profile-tab').forEach(function (b) {
+            b.classList.remove('is-active');
+        });
+        modal.querySelectorAll('.js-profile-panel').forEach(function (panel) {
+            panel.style.display = 'none';
+        });
+
+        const targetId = tab.getAttribute('data-target');
+        const target = document.getElementById(targetId);
+        tab.classList.add('is-active');
+        if (target) target.style.display = 'block';
+    });
+});
+</script>
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

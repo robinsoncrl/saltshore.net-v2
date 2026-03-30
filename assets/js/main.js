@@ -43,10 +43,10 @@
     });
 
     // Active navigation link highlighting
-    var currentFile = window.location.pathname.split('/').pop() || 'index.php';
+    var currentFile = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.sidebar-nav a').forEach(function (link) {
         var linkFile = link.getAttribute('href').split('/').pop().split('?')[0];
-        if (linkFile === currentFile || (currentFile === '' && linkFile === 'index.php')) {
+        if (linkFile === currentFile || (currentFile === '' && linkFile === 'index.html')) {
             link.classList.add('active');
         }
     });

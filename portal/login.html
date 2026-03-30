@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Saltshore Owner Portal</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/portal.css">
+    <style>
+        .pin-hint { font-size: 0.82rem; color: var(--color-secondary); opacity: 0.65; margin-top: 4px; }
+    </style>
+</head>
+<body class="login-page">
+
+    <div class="login-container">
+        <div class="login-card">
+            <img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems" class="login-logo">
+            <h1>Owner Portal</h1>
+            <p class="login-subtitle">Saltshore Systems</p>
+
+            
+                <div class="alert alert-success">Access created — log in below.</div>
+            
+
+            
+                <div class="alert alert-error">
+                    
+                </div>
+                
+            
+
+            <form method="POST" action="#" class="login-form">
+                <input type="hidden" name="action" value="login">
+                <input type="hidden" name="csrf_token" value="">
+
+                <div class="form-group">
+                    <label for="username">Admin Name or Employee ID</label>
+                    <input type="text"
+                           id="username"
+                           name="username"
+                           required
+                           autocomplete="username"
+                           autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="pin">4-Digit PIN</label>
+                    <input type="password"
+                           id="pin"
+                           name="password"
+                           inputmode="numeric"
+                           pattern="[0-9]{4}"
+                           maxlength="4"
+                           placeholder="••••"
+                           required
+                           autocomplete="current-password">
+                          <p class="pin-hint">Use admin PIN or assigned employee login PIN.</p>
+                </div>
+
+                <a href="index.html" class="btn-primary btn-full" style="display:inline-block; text-decoration:none; text-align:center;">Enter Static Demo</a>
+            </form>
+
+            <p style="margin-bottom: var(--space-md);">
+                <a href="../index.html" style="font-size: 0.88rem; color: var(--color-accent); text-decoration: none;">&larr; Back to Homepage</a>
+            </p>
+
+            <p class="login-footer">Secure access for authorized personnel only.</p>
+        </div>
+    </div>
+
+</body>
+</html>

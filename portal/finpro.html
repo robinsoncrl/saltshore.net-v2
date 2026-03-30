@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Finpro ? Saltshore Owner Portal (Static Demo)</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="assets/portal.css"><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script></head><body><div class="portal-layout"><aside class="portal-sidebar" id="portal-sidebar"><div class="portal-logo"><img src="../assets/img/SSS_logo_2.png" alt="Saltshore Systems"><h2>Owner Portal</h2><p>Saltshore Systems</p></div><nav class="portal-nav"><ul><li><a href="index.html">Dashboard</a></li><li><a href="calgen.html">CalGen</a></li><li><a href="finpro.html">FinPro</a></li><li><a href="ledgerpro.html">LedgerPro</a></li><li><a href="kpis.html">KPIs</a></li><li><a href="reports.html">Reports</a></li><li><a href="management.html">Management</a></li><li><a href="settings.html">Settings</a></li><li><a href="login.html" style="color: rgba(239, 68, 68, 0.8);">Logout</a></li></ul></nav></aside><div class="portal-sidebar-backdrop" data-sidebar-close></div><main class="portal-main"><header class="portal-topbar"><div class="portal-topbar-left"><button type="button" class="portal-menu-toggle" id="portal-menu-toggle" aria-label="Toggle navigation menu" aria-controls="portal-sidebar" aria-expanded="false">?</button><h1>Finpro</h1></div><div class="portal-topbar-actions"><span class="portal-user">Demo User <span style="opacity: 0.6; font-size: 0.78rem; margin-left: 6px;">(Static Demo)</span></span></div></header><div class="portal-content"><div class="alert alert-success">Static Demo Mode: data entry is visual only and does not persist on GitHub Pages.</div>
+
+    <div class="alert alert-success"></div>
+
+    <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: var(--space-2xl);">
+        <div class="kpi-card">
+            <div class="kpi-label">Week to Date Hours</div>
+            <div class="kpi-value"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Week to Date Pay</div>
+            <div class="kpi-value" style="color: var(--success);"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Hourly Rate</div>
+            <div class="kpi-value">/hr</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Pending Expenses</div>
+            <div class="kpi-value" style="color: var(--warning);"></div>
+        </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+        <div class="data-table-container" style="padding: var(--space-xl);">
+            <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Submit Expense / Reimbursement</h3>
+            <form method="GET">
+                <input type="hidden" name="csrf_token" value="">
+                <input type="hidden" name="action" value="submit_expense_request">
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md);">
+                    <div class="form-group">
+                        <label for="expense_date">Date</label>
+                        <input type="date" id="expense_date" name="expense_date" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expense_type">Type</label>
+                        <input type="text" id="expense_type" name="expense_type" placeholder="Fuel, Supplies, Travel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" name="amount" min="0" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="receipt_reference">Receipt / Document Link</label>
+                    <input type="text" id="receipt_reference" name="receipt_reference" placeholder="Receipt ID, file path, or link">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Reimbursement notes"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit Request</button>
+            </form>
+        </div>
+
+        <div class="data-table-container" style="padding: var(--space-xl);">
+            <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Historical Pay by Week</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Approved Hours</th>
+                        <th>Estimated Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        
+                            
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        
+                    
+                        <tr><td colspan="3" style="text-align:center; opacity:0.6;">No approved time history yet.</td></tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="data-table-container">
+        <div class="data-table-header">
+            <h3>My Expense Requests</h3>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Receipt</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                
+                                    <span class="pill-success">Approved</span>
+                                
+                                    <span class="pill-danger">Rejected</span>
+                                
+                                    <span class="pill-muted">Pending</span>
+                                
+                            </td>
+                            <td></td>
+                        </tr>
+                    
+                
+                    <tr><td colspan="6" style="text-align:center; opacity:0.6;">No requests submitted yet.</td></tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    
+
+
+<div class="alert alert-success"></div>
+
+
+<div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: var(--space-2xl);">
+    <div class="kpi-card">
+        <div class="kpi-label">Billable Hours (MTD)</div>
+        <div class="kpi-value"> hrs</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Estimated Earnings</div>
+        <div class="kpi-value" style="color: var(--success);"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Total Invoiced</div>
+        <div class="kpi-value"></div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">Outstanding</div>
+        <div class="kpi-value" style="color: var(--warning);"></div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <div class="data-table-container" style="padding: var(--space-xl);">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Hourly Rate</h3>
+        <form method="GET">
+            <input type="hidden" name="csrf_token" value="">
+            <input type="hidden" name="action" value="update_rate">
+            <div class="form-group">
+                <label for="hourly_rate">Default Rate ($/hr)</label>
+                <input type="number" id="hourly_rate" name="hourly_rate" min="0" step="0.01" value="" placeholder="e.g. 75.00">
+            </div>
+            <button type="submit" class="btn-primary">Save Rate</button>
+        </form>
+    </div>
+
+    <div class="data-table-container" style="padding: var(--space-xl);">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">Earnings Calculator</h3>
+        <div class="form-group">
+            <label for="calc-rate">Rate ($/hr)</label>
+            <input type="number" id="calc-rate" min="0" step="0.01" value="" placeholder="Rate">
+        </div>
+        <div class="form-group">
+            <label for="calc-hours">Hours</label>
+            <input type="number" id="calc-hours" min="0" step="0.1" value="" placeholder="Hours">
+        </div>
+        <div style="font-size: 0.85rem; color: var(--color-secondary); margin-bottom: var(--space-sm);">Total</div>
+        <div id="calc-result" style="font-size: 2rem; font-weight: 500; color: var(--color-primary);">$0.00</div>
+    </div>
+</div>
+
+<div class="data-table-container" style="padding: var(--space-xl); margin-bottom: var(--space-2xl);">
+    <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">New Invoice</h3>
+    <form method="GET">
+        <input type="hidden" name="csrf_token" value="">
+        <input type="hidden" name="action" value="create_invoice">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr; gap: var(--space-lg); align-items: end;">
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="client">Client / Description</label>
+                <input type="text" id="client" name="client" placeholder="Client name" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="description">Notes</label>
+                <input type="text" id="description" name="description" placeholder="Optional notes">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="hours">Hours</label>
+                <input type="number" id="hours" name="hours" min="0" step="0.1" value="" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="rate">Rate ($/hr)</label>
+                <input type="number" id="rate" name="rate" min="0" step="0.01" value="" required>
+            </div>
+        </div>
+        <div style="margin-top: var(--space-lg);">
+            <button type="submit" class="btn-primary">Create Invoice</button>
+        </div>
+    </form>
+</div>
+
+<div class="data-table-container" style="margin-bottom: var(--space-2xl);">
+    <div class="data-table-header">
+        <h3>Invoice History</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Client</th>
+                <th>Description</th>
+                <th>Hours</th>
+                <th>Rate</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td>#</td>
+                        <td></td>
+                        <td style="max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong></strong></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <form method="GET" style="display: inline;" onsubmit="return confirm('Delete this invoice from FinPro and linked LedgerPro entries?');">
+                                <input type="hidden" name="csrf_token" value="">
+                                <input type="hidden" name="action" value="delete_invoice">
+                                <input type="hidden" name="invoice_id" value="">
+                                <button type="submit" class="btn-icon-danger" title="Delete invoice" aria-label="Delete invoice">&#128465;</button>
+                            </form>
+                            
+                                <form method="GET" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="">
+                                    <input type="hidden" name="action" value="mark_paid">
+                                    <input type="hidden" name="invoice_id" value="">
+                                    <button type="submit" class="btn-success" style="padding: 6px 12px; font-size: 0.85rem;">Mark Paid</button>
+                                </form>
+                            
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="9" style="text-align: center; opacity: 0.5;">No invoices yet</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="data-table-container">
+    <div class="data-table-header">
+        <h3>Employee Expense Requests</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Employee</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Receipt</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            
+                                <span class="pill-success">Approved</span>
+                            
+                                <span class="pill-danger">Rejected</span>
+                            
+                                <span class="pill-muted">Pending</span>
+                            
+                        </td>
+                        <td style="display:flex; gap:6px;">
+                            
+                                <form method="GET" style="display:inline;">
+                                    <input type="hidden" name="csrf_token" value="">
+                                    <input type="hidden" name="action" value="review_expense_request">
+                                    <input type="hidden" name="request_id" value="">
+                                    <input type="hidden" name="status" value="approved">
+                                    <button type="submit" class="btn-success" style="padding: 5px 10px;">Approve</button>
+                                </form>
+                                <form method="GET" style="display:inline;">
+                                    <input type="hidden" name="csrf_token" value="">
+                                    <input type="hidden" name="action" value="review_expense_request">
+                                    <input type="hidden" name="request_id" value="">
+                                    <input type="hidden" name="status" value="rejected">
+                                    <button type="submit" class="btn-danger" style="padding: 5px 10px;">Reject</button>
+                                </form>
+                            
+                                <span style="opacity:0.7; font-size:0.85rem;">Reviewed by </span>
+                            
+                        </td>
+                    </tr>
+                
+            
+                <tr><td colspan="7" style="text-align: center; opacity: 0.5;">No expense requests submitted.</td></tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+</div></main></div><script src="assets/portal.js"></script></body></html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: light;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products ? SaltShore Systems</title>
+    <meta name="description" content="CalGen, FinPro, and LedgerPro.">
+    <meta name="theme-color" content="#0A1A2F">
+    <link rel="stylesheet" href="assets/css/style.css?v=static">
+    <script defer src="assets/js/main.js"></script>
+</head>
+<body>
+<button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar-nav"><span></span><span></span><span></span></button>
+<div class="sidebar-overlay" aria-hidden="true"></div>
+<nav class="sidebar" id="sidebar-nav" aria-label="Primary navigation">
+    <a href="index.html" class="sidebar-logo" aria-label="SaltShore Systems ? Home">
+        <img src="assets/img/SSS_logo_2.png" alt="SaltShore Systems circular anchor logo" width="72" height="72">
+        <span class="sidebar-logo-text">SALTSHORE SYSTEMS<span>Where tides meet tech.</span></span>
+    </a>
+    <ul class="sidebar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="docs.html">Docs</a></li>
+    </ul>
+    <div class="sidebar-bottom">
+        <a href="contact.html" class="btn-primary" style="width: 100%; box-sizing: border-box;">Get in Touch</a>
+        <a href="mailto:support@saltshore.net" class="sidebar-contact-link">support@saltshore.net</a>
+    </div>
+</nav>
+
+
+<main class="main-content">
+
+    <!-- Hero -->
+    <section class="hero hero-sm">
+        <p class="hero-tagline">The Suite</p>
+        <h1>Three tools. One pipeline.</h1>
+        <p class="hero-subhead">
+            Each tool solves one problem completely &mdash; and hands off cleanly to the next.
+        </p>
+    </section>
+
+    <!-- CalGen -->
+    <section class="split-section">
+        <div class="split-content">
+            <span class="section-label">01 &mdash; Time</span>
+            <h2>CalGen</h2>
+            <p>
+                CalGen generates and validates iCalendar (.ics) files built to survive
+                real-world client incompatibilities. It targets the failure modes that actually
+                break calendar workflows&mdash;timezone drift, missing required fields,
+                recurrence fragility, and strict client enforcement&mdash;and solves the
+                portion that is structurally solvable.
+            </p>
+            <ul class="feature-list mt-md">
+                <li>Timezone-safe output with canonical VTIMEZONE handling and explicit TZID strategy</li>
+                <li>Required-field correctness by construction (VERSION, PRODID, UID, DTSTART, DTSTAMP)</li>
+                <li>Strict RFC&nbsp;5545 property ordering&mdash;prevents modern client parsers from silently dropping fields</li>
+                <li>Resilient recurrence generation (RRULE, EXDATE, RECURRENCE-ID) to reduce DST drift and exception loss</li>
+                <li>Stable deterministic UIDs for reconciliation and deduplication over time</li>
+                <li>Deterministic outputs: same input &rarr; same file, enabling versioning and verification</li>
+            </ul>
+            <a href="service-detail-calgen.html" class="btn-primary mt-lg">
+                See CalGen Details &rarr;
+            </a>
+        </div>
+        <div class="split-visual">
+            <img src="assets/img/calgen-logo.png"
+                 alt="CalGen product logo — calendar with gear icon"
+                 style="max-width: 180px; height: auto;
+                        border-radius: var(--radius-lg);">
+        </div>
+    </section>
+
+    <!-- FinPro -->
+    <section class="section-full section-alt">
+        <div class="split-section"
+             style="padding: 0; max-width: var(--content-wide); margin: 0 auto;">
+            <div class="split-visual">
+                 <img src="assets/img/finpro-logo.png"
+                     alt="FinPro product logo — invoice document with dollar badge"
+                     style="max-width: 180px; height: auto;
+                            border-radius: var(--radius-lg);">
+            </div>
+            <div class="split-content">
+                <span class="section-label">02 &mdash; Billing</span>
+                <h2 style="color: var(--color-text);">FinPro</h2>
+                <p style="color: var(--color-text-muted);">
+                    FinPro closes the gap between work performed and money correctly documented.
+                    It ingests structured time data from CalGen or manual entry, applies explicit
+                    rate rules, and produces reproducible financial outputs&mdash;every line item
+                    shows its derivation, totals are always calculated, never typed.
+                </p>
+                <ul class="feature-list mt-md">
+                    <li>Deterministic earnings calculation from structured time&mdash;same input, same output</li>
+                    <li>Versioned rate definitions with effective-date boundaries to prevent retroactive drift</li>
+                    <li>Immutable invoice line items preserving rates, quantities, and totals at issuance</li>
+                    <li>Transparent gross-to-net estimation with labeled deduction breakdowns</li>
+                    <li>Expense tracking with client/project attribution and direct invoice inclusion</li>
+                    <li>Fully offline&mdash;local data storage, no subscription dependency</li>
+                </ul>
+                <a href="service-detail-finpro.html"
+                   class="btn-primary mt-lg"
+                   style="align-self: flex-start;">
+                    See FinPro Details &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LedgerPro -->
+    <section class="split-section">
+        <div class="split-content">
+            <span class="section-label">03 &mdash; Records</span>
+            <h2>LedgerPro</h2>
+            <p>
+                LedgerPro converts raw bank statement files into defensible, auditable
+                transaction ledgers. It ingests CSV, OFX, QFX, and fixed-width reports
+                from any institution, normalizes them deterministically, and reconciles
+                against FinPro invoices&mdash;surfacing gaps before tax time finds them
+                for you.
+            </p>
+            <ul class="feature-list mt-md">
+                <li>First-class import of CSV, OFX, QFX, and fixed-width statements&mdash;no live bank feeds</li>
+                <li>Deterministic normalization of dates, amounts, and debit/credit models</li>
+                <li>Duplicate detection using composite fingerprints with user-visible resolution paths</li>
+                <li>Transfer-aware reconciliation preventing internal movements from inflating income</li>
+                <li>Statement coverage indexing to surface missing months or gaps</li>
+                <li>Structured Records Vault with integrity hashing and long-term archival</li>
+            </ul>
+            <a href="service-detail-ledgerpro.html" class="btn-primary mt-lg">
+                See LedgerPro Details &rarr;
+            </a>
+        </div>
+        <div class="split-visual">
+            <img src="assets/img/ledgerpro-logo.svg"
+                 alt="LedgerPro product logo — open ledger book with checkmark badge"
+                 style="max-width: 180px; height: auto;
+                        border-radius: var(--radius-lg);">
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="cta-band-inner">
+            <h2>Start with CalGen. End with reconciled records.</h2>
+            <p>
+                Each tool is available individually or as a complete suite.
+                One-time purchase. Local install. Your data stays yours.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="contact.html" class="btn-primary">Get in Touch</a>
+                <a href="docs.html"
+                   class="btn-ghost"
+                   style="color: rgba(247,249,251,0.8);
+                          border-color: rgba(247,249,251,0.2);">Read the Docs</a>
+            </div>
+        </div>
+    </section>
+
+    
+
+</main>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand"><div class="footer-brand-row"><a href="portal/login.html" class="footer-login-logo" title="Business Owner Portal"><img src="assets/img/SSS_logo_2.png" alt="SaltShore Systems ? Owner Portal" width="72" height="72"></a><div class="footer-brand-copy"><strong>SALTSHORE SYSTEMS</strong><p>Offline-first, deterministic tools for freelancers and sole operators. Built in Maine.</p><div class="footer-social"><a href="https://www.facebook.com/profile.php?id=61581291097599" target="_blank" rel="noopener noreferrer">Facebook</a><a href="mailto:support@saltshore.net">Email</a></div></div></div></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Products</a></li><li><a href="contact.html">Contact</a></li><li><a href="docs.html">Docs</a></li></ul></div>
+            <div class="footer-col"><h4>Products</h4><ul><li><a href="service-detail-calgen.html">CalGen</a></li><li><a href="service-detail-finpro.html">FinPro</a></li><li><a href="service-detail-ledgerpro.html">LedgerPro</a></li></ul></div>
+            <div class="footer-col"><h4>Connect</h4><ul><li><a href="mailto:support@saltshore.net">support@saltshore.net</a></li><li><a href="https://www.facebook.com/profile.php?id=61581291097599" target="_blank" rel="noopener noreferrer">Facebook</a></li></ul><p class="footer-service-areas">Service Areas: Maine &middot; Remote / Nationwide</p></div>
+        </div>
+        <div class="footer-trust-row"><span>Offline-First Build</span><span>Deterministic Systems</span><span>No Forced Subscription Access</span></div>
+        <div class="footer-bottom"><p>&copy; 2026 SaltShore Systems &mdash; Where tides meet tech.</p><a href="privacy.html">Privacy Policy</a></div>
+    </footer>
+</body>
+</html>
