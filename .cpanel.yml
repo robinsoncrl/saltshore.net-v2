@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/iuhsmdtfzu/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - export DEPLOYPATH=/home/iuhsmdtfzu/public_html
+    - /bin/rsync -av --delete /home/iuhsmdtfzu/saltshore.net-v2/ $DEPLOYPATH
